@@ -17,8 +17,11 @@
   },
   "homepage": "https://github.com/jeanfredrik/gulp-css-info#readme",
   "dependencies": {
-    "css-info": "^0.1.1",
+    "css-info": "^0.2.0",
     "gulp-util": "^3.0.7",
-    "through2": "^2.0.0"
+    "jade": "^1.11.0",
+    "sifter": "^0.4.5",
+    "through2": "^2.0.0",
+    "underscore": "^1.8.3"
   }
 }
