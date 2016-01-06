@@ -1,0 +1,109 @@
+doctype html
+html(lang="en", style="height: 100%;")
+	head
+		title CSS Info
+		link(rel="stylesheet", href="https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css")
+		style.
+			.css-info-h2 {
+				padding-top: 1rem;
+				margin: .5rem 0 .5rem;
+			}
+			.css-info-muted {
+				color: #808080;
+				font-size: .75em;
+				font-weight: normal;
+			}
+			.css-info-item-list {
+				margin-right: -.5rem;
+				margin-left: -.5rem;
+			}
+			.css-info-item {
+				padding-right: .5rem;
+				margin-bottom: 1rem;
+				padding-left: .5rem;
+				box-sizing: border-box;
+			}
+			.css-info-item-header {
+				margin-bottom: .5rem;
+				white-space: nowrap;
+				margin-right: -.25rem;
+				margin-left: -.25rem;
+			}
+			.css-info-example-text {
+				border-radius: .5rem;
+				background-color: white;
+				border-color: rgba(0,0,0,.25);
+				border-width: 1px;
+				border-style: solid;
+				box-sizing: border-box;
+				padding: 1rem;
+			}
+			.css-info-example-text-color-left {
+				border-top-left-radius: .5rem;
+				border-bottom-left-radius: .5rem;
+				background-color: white;
+				border-color: rgba(0,0,0,.25);
+				border-width: 1px;
+				border-style: solid none solid solid;
+				box-sizing: border-box;
+				padding: 1rem;
+			}
+			.css-info-example-text-color-right {
+				border-top-right-radius: .5rem;
+				border-bottom-right-radius: .5rem;
+				background-color: black;
+				box-sizing: border-box;
+				padding: 1rem;
+			}
+			.css-info-item-label {
+				display: inline-block;
+				background-color: rgba(0,0,0,.2);
+				padding: .25rem;
+				border-radius: .25rem;
+				margin-right: .25rem;
+				margin-left: .25rem;
+			}
+			.css-info-example-border {
+				border-style: dotted;
+				border-width: 1px;
+				border-color: rgba(0,0,0,.5)
+			}
+		style= css
+	body(style="font-family: sans-serif; height: 100%; margin: 0;")
+		div(style="display: flex; flex-direction: column; height: 100%;")
+
+			div(style="flex: 0 0 auto; border-bottom: 1px solid rgba(0,0,0,.25); padding: .5rem; display: flex; align-items: center;")
+				div(style="padding: .5rem")
+					h1(style="margin: 0;") css-info
+				div(style="padding: .5rem; flex: 1 1 auto")
+					//- label(for="search") Search: 
+					input(type="text", id="search", placeholder="Search", autocomplete="off", style="padding: .5rem; border-radius: .5rem; border: 1px solid rgba(0,0,0,.25); outline: 0; font-size: 16px; display: block; width: 100%; box-sizing: border-box;")
+				div(style="padding: .5rem")
+					label(for="state-input") State: 
+					select(id="state-input")
+						option(value="") none
+						each state in states
+							option(value=state)= state
+				div(style="padding: .5rem")
+					label(for="media-input") Media query: 
+					select(id="media-input")
+						option(value="") none
+						each media in medias
+							option(value=media)= media
+				div(style="padding: .5rem")
+					label(for="example-bg-input") Background: 
+					select(id="example-bg-input")
+						each value in exampleBgValues
+							option(value=JSON.stringify(value.css))= value.label
+
+			div(style="display: flex; flex-wrap: wrap; flex: 1 1 0")
+				nav(style="flex: 0 0 auto; padding: 1rem; overflow-y: auto;")
+					include ./css-info-nav.jade
+				div(style="flex: 1 0 auto; width: 320px; padding: 0 1rem; overflow-y: auto;")
+					include ./css-info-body.jade
+
+		script(src="//code.jquery.com/jquery-1.11.3.min.js")
+		script(src="//cdnjs.cloudflare.com/ajax/libs/underscore.js/1.8.3/underscore-min.js")
+		script
+			include ./js/sifter.min.js
+			include ./js/css-info.js

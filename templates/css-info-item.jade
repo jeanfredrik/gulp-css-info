@@ -1,0 +1,126 @@
+mixin cssInfoItemHeader(item, hideValue)
+	div(style="margin-bottom: .5rem; white-space: nowrap; margin-right: -.25rem; margin-left: -.25rem;")
+		each classObj in item.classes
+			code.js-css-info-class(style="display: inline-block; background-color: rgba(0,0,0,.2); padding: .25rem; border-radius: .25rem; margin-right: .25rem; margin-left: .25rem;", id="css-info-class-#{classObj.className}", data-name=classObj.className, data-category=item.category data-properties=JSON.stringify(classObj.properties), data-values=JSON.stringify(classObj.values), data-states=JSON.stringify(classObj.states), data-medias=JSON.stringify(classObj.medias))= classObj.className
+		if !hideValue
+			code(style="word-spacing: -.25em;") = #{item.classes[0].values.join(' ')}
+
+mixin cssInfoCss(item)
+	each value, property in item.classes[0].declarationsMap
+		div
+			span(style="color: #cb0000;")= property
+			= ": "
+			span= value
+			| ;
+
+mixin cssInfoExampleBorder(item)
+	-
+		var classes = [item.classes[0].className];
+		var styles = '';
+		if(!item.containsBorderColorProperty) {
+			classes.push('js-css-info-dynamic-border-color');
+			styles += ' background: rgba(127,127,127,.1);';
+		}
+		if(!item.containsBorderStyleProperty) {
+			styles += ' border-style: solid;';
+		}
+		if(!item.containsBorderWidthProperty) {
+			styles += ' border-width: .2rem;';
+		}
+		var className = classes.join(' ');
+	div.js-css-info-dynamic-bg(style="border-radius: .5rem; height: 7.5rem; box-sizing: border-box; padding: 1rem; border: 1px solid rgba(0,0,0,.25);")
+		div(class=className, style="width:100%; height:100%; box-sizing: border-box; #{styles}")
+		
+mixin cssInfoItemDefault(item)
+	li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 100%;")
+		+cssInfoItemHeader(item, true)
+		code(style="display: block; background-color: rgba(0,0,0,.1); padding: 1rem; border-radius: .5rem; border: 1px solid rgba(0,0,0,.25);")
+			+cssInfoCss(item)
+
+case item.type
+
+	when 'color'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 20rem;")
+			+cssInfoItemHeader(item)
+			div(class=item.classes[0].className, style="display: flex;")
+				div.js-css-info-dynamic-bg(style="border-radius: .5rem; border-color: rgba(0,0,0,.25); border-width: 1px; border-style: solid; box-sizing: border-box; padding: 1rem;")
+					| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Pellentesque fermentum, tellus sit amet dignissim maximus, magna leo molestie felis, ut egestas arcu dui pretium nisl.
+
+	when 'background-color'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 20rem;")
+			+cssInfoItemHeader(item)
+			div(style="height: 7.5rem; position: relative;")
+				div.js-css-info-dynamic-bg(style="width: 100%; height: 100%; border-radius: .5rem; position: absolute; top: 0; left: 0;")
+				div(class=item.classes[0].className, style="width: 100%; height: 100%; border-radius: .5rem; position: absolute; top: 0; left: 0; border: 1px solid rgba(0,0,0,.25); box-sizing: border-box;")
+
+	when 'border'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 20rem;")
+			+cssInfoItemHeader(item)
+			+cssInfoExampleBorder(item)
+
+	when 'margin'
+		if !item.classes[0].negativeValues.length
+			li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column;")
+				+cssInfoItemHeader(item)
+				div(style="background-color: #facc9a; overflow: hidden; display: flex; flex: 1 0 auto; min-width: 20em;")
+					div(class=item.classes[0].className, style="min-width: 2rem; min-height: 2rem; border: 1px dashed rgba(0,0,0,.5); box-sizing: border-box; background: #89b5c1; flex: 1 0 auto;")
+		else
+			+cssInfoItemDefault(item)
+
+	when 'padding'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column;")
+			+cssInfoItemHeader(item)
+			div(class=item.classes[0].className, style="border: 1px dashed rgba(0,0,0,.5); box-sizing: border-box; background-color: #c2d086; overflow: hidden; display: flex; flex: 1 0 auto; min-width: 20em;")
+				div(style="min-width: 2rem; min-height: 2rem; background: #89b5c1; flex: 1 0 auto;")
+
+	when 'width'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 100%;")
+			+cssInfoItemHeader(item)
+			div(style="background-color: rgba(0,0,0,.1);")
+				div(style="height: 2rem; border: 1px dashed rgba(0,0,0,.5); background: #89b5c1; margin: 0 -1px; width: #{item.classes[0].values[0]}")
+
+	when 'height'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 20em;")
+			+cssInfoItemHeader(item)
+			div(style="background-color: rgba(0,0,0,.1); min-height: 5rem; flex: 1 0 auto; flex-direction: column; position: relative; height: #{item.classes[0].values[0]}")
+				div(style="position: absolute; left: 0; top: 0; right: 0; border: 1px dashed rgba(0,0,0,.5); background: #89b5c1; margin: -1px 0; height: #{item.classes[0].values[0]}")
+
+	when 'font-size'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 100%;")
+			+cssInfoItemHeader(item)
+			div(class=item.classes[0].className, style="border-radius: .5rem; background-color: white; border-color: rgba(0,0,0,.25); border-width: 1px; border-style: solid; box-sizing: border-box; padding: 1rem;")
+				| Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+	when 'line-height'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 40em;")
+			+cssInfoItemHeader(item)
+			div(class=item.classes[0].className, style="border-radius: .5rem; background-color: white; border-color: rgba(0,0,0,.25); border-width: 1px; border-style: solid; box-sizing: border-box; padding: 1rem;")
+				div(style="max-width: 40em;")
+					| Lorem ipsum dolor sit amet, consectetur adipiscing elit. Praesent consectetur bibendum pretium. Etiam id vehicula justo. Aliquam efficitur velit id nisl interdum ornare. Mauris sit amet tortor placerat, dapibus odio vulputate, tempor diam. Phasellus quis consectetur sem, non lobortis libero. Maecenas vel sapien lobortis, aliquet mauris in, pellentesque neque.
+
+	when 'font-family'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 20em;")
+			+cssInfoItemHeader(item)
+			div(class=item.classes[0].className, style="border-radius: .5rem; background-color: white; border-color: rgba(0,0,0,.25); border-width: 1px; border-style: solid; box-sizing: border-box; padding: 1rem;")
+				| Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+	when 'font-weight'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 20em;")
+			+cssInfoItemHeader(item)
+			div(class=item.classes[0].className, style="border-radius: .5rem; background-color: white; border-color: rgba(0,0,0,.25); border-width: 1px; border-style: solid; box-sizing: border-box; padding: 1rem;")
+				| Lorem ipsum dolor sit amet, consectetur adipiscing elit.
+
+	when 'text-shadow'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 30em;")
+			+cssInfoItemHeader(item)
+			div(class="#{item.classes[0].className} js-css-info-dynamic-bg js-css-info-dynamic-color", style="border-radius: .5rem; background-color: white; border-color: rgba(0,0,0,.25); border-width: 1px; border-style: solid; box-sizing: border-box; padding: 2rem; font-size: 2em; font-weight: bold; overflow: hidden;")
+				| Lorem ipsum dolor sit amet
+
+	when 'box-shadow'
+		li.js-css-info-item(style="padding-right: .5rem; margin-bottom: 1rem; padding-left: .5rem; box-sizing: border-box; flex: 1 0 auto; display: flex; flex-direction: column; width: 30rem;")
+			+cssInfoItemHeader(item)
+			div.js-css-info-dynamic-bg(style="border-radius: .5rem; height: 9.5rem; box-sizing: border-box; padding: 2rem; border: 1px solid rgba(0,0,0,.25); overflow: hidden;")
+				div.js-css-info-dynamic-box-bg(class=item.classes[0].className, style="width:100%; height:100%;")
+
+	default
+		+cssInfoItemDefault(item)
