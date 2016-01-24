@@ -1,4 +1,4 @@
-var _ = require('underscore');
+var _ = require('lodash');
 var through = require('through2');
 var cssInfo = require('css-info');
 var gutil = require('gulp-util');
@@ -71,6 +71,7 @@ module.exports.html = function(options) {
 				return {
 					id: id,
 					classes: classGroup,
+					style: classGroup[0].declarationsString+';',
 				};
 			});
 
@@ -262,8 +263,8 @@ module.exports.html = function(options) {
 				delete category.filter;
 			});
 
-			var states = _.uniq(_.flatten(_.pluck(info.classes, 'states'), true));
-			var medias = _.uniq(_.flatten(_.pluck(info.classes, 'medias'), true));
+			var states = _.uniq(_.flatten(_.map(info.classes, 'states'), true));
+			var medias = _.uniq(_.flatten(_.map(info.classes, 'medias'), true));
 
 			var data = jadeFile({
 				css: css,
