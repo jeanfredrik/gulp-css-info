@@ -71,6 +71,7 @@ module.exports.html = function(options) {
 				return {
 					id: id,
 					classes: classGroup,
+					style: classGroup[0].declarationsString+';',
 				};
 			});
 
