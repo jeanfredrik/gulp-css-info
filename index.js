@@ -3,7 +3,6 @@ const {
 } = require('lodash/fp');
 const gutil = require('gulp-util');
 const through = require('through2');
-const escapeHTML = require('escape-html');
 
 const fs = require('fs');
 
