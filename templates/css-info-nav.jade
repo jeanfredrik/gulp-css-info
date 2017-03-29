@@ -1,9 +1,0 @@
-ul(style="list-style:none;padding-left:0;")
-	each category in categories
-		if category.items.length
-			li.js-css-info-nav-category
-				a(href="##{category.name}")= category.title
-				span.css-info-muted
-					|  (
-					span.js-css-info-category-count(data-category=category.name) 0
-					| )
