@@ -1,7 +1,7 @@
 {
   "name": "gulp-css-info",
-  "version": "0.3.0",
-  "description": "",
+  "version": "1.0.0",
+  "description": "Gulp plugin for generating docs for functional CSS files",
   "main": "index.js",
   "scripts": {
     "test": "echo \"Error: no test specified\" && exit 1"
@@ -16,11 +16,18 @@
     "url": "https://github.com/jeanfredrik/gulp-css-info/issues"
   },
   "homepage": "https://github.com/jeanfredrik/gulp-css-info#readme",
+  "devDependencies": {
+    "eslint": "^3.18.0",
+    "eslint-config-airbnb": "^14.1.0",
+    "eslint-plugin-import": "^2.2.0",
+    "eslint-plugin-jsx-a11y": "^4.0.0",
+    "eslint-plugin-react": "^6.10.3"
+  },
   "dependencies": {
-    "css-info": "^0.3.0",
-    "gulp-util": "^3.0.7",
-    "jade": "^1.11.0",
-    "lodash": "^4.0.0",
-    "through2": "^2.0.0"
+    "css-info-app": "^1.1.0",
+    "escape-html": "^1.0.3",
+    "gulp-util": "^3.0.8",
+    "lodash": "^4.17.4",
+    "through2": "^2.0.3"
   }
 }
