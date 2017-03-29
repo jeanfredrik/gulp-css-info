@@ -3,7 +3,6 @@ const {
 } = require('lodash/fp');
 const gutil = require('gulp-util');
 const through = require('through2');
-const escapeHTML = require('escape-html');
 
 const fs = require('fs');
 
@@ -49,7 +48,7 @@ module.exports = function cssInfo() {
         }${
           end
         }`
-      ),
+      )
     )
   );
   const embedCSS = (
@@ -60,7 +59,7 @@ module.exports = function cssInfo() {
         `<style>${
           readModuleFileSync(`css-info-app/build${href}`)
         }</style>`
-      ),
+      )
     )
   );
   return through.obj(function cssInfoTransform(file, encoding, callback) {
@@ -81,7 +80,7 @@ module.exports = function cssInfo() {
         embedCSS,
         contents => new Buffer(contents),
       ])(
-        file.contents,
+        file.contents
       );
       // eslint-disable-next-line no-param-reassign
       file.path = gutil.replaceExtension(file.path, '.html');
