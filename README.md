@@ -1,6 +1,6 @@
 # CSS info for Gulp
 
-This gulp plugin allows you to generate a static version of the [CSS info app](https://github.com/jeanfredrik/css-info-app) contained within a single file. The generated HTML file is a replacement for [css-info.com](http://css-info.com/) so that you can include your functional CSS reference in your project repo.
+This gulp plugin allows you to generate a static version of the [CSS info app](https://github.com/jeanfredrik/css-info-app) contained within a single file. The generated HTML file is a replacement for [css-info.jeanfredrik.com](https://css-info.jeanfredrik.com/) so that you can include your functional CSS reference in your project repo.
 
 ## Example usage
 
